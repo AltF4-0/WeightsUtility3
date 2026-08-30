@@ -376,7 +376,7 @@ if __name__ == "__main__":
     app.setStyle("Fusion")
     app.setStyleSheet(DARK_STYLESHEET)
     app.setDesktopFileName("WeightsUtility3")
-    app.setWindowIcon(QIcon(resource_path("weightsutility3.ico")))
+    app.setWindowIcon(QIcon(resource_path("weightsutility3.png")))
     window = MainWindow(app)
     window.show()
     sys.exit(app.exec())
