@@ -1,0 +1,1 @@
+pyinstaller --onefile --windowed --name WeightsUtility3 --add-data "weightsutility3.png:." main_pyqt6.py

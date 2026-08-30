@@ -1,0 +1,10 @@
+.venv/
+__pycache__/
+*.pyc
+.env
+.vscode/
+WeightsUtility3-x86_64.AppImage
+pyrightconfig.json
+build
+dist
+WeightsUtility3.spec

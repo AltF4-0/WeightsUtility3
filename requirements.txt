@@ -1,0 +1,6 @@
+pyinstaller
+PyQt6
+pandas
+openpyxl
+pymupdf
+pdfplumber
