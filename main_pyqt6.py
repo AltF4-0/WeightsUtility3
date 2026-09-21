@@ -12,10 +12,13 @@ from PyQt6.QtCore import (
 from PyQt6.QtGui import (
     QColor,
     QDragEnterEvent,
+    QDragLeaveEvent,
     QDropEvent,
     QFont,
     QIcon,
+    QMouseEvent,
     QPainter,
+    QPaintEvent,
 )
 from PyQt6.QtWidgets import (
     QApplication,
@@ -95,8 +98,8 @@ class ThemeToggle(QWidget):
         self._timer.setInterval(15)
         self._timer.timeout.connect(self._animate_step)
 
-    def mousePressEvent(self, event):
-        if event.button() == Qt.MouseButton.LeftButton:
+    def mousePressEvent(self, a0: QMouseEvent | None) -> None:
+        if a0 is not None and a0.button() == Qt.MouseButton.LeftButton:
             self._dark_mode = not self._dark_mode
             self._notch_target = 1.0 if self._dark_mode else 0.0
             self._timer.start()
@@ -112,7 +115,7 @@ class ThemeToggle(QWidget):
             self._notch_pos += diff * step
         self.update()
 
-    def paintEvent(self, event):
+    def paintEvent(self, a0: QPaintEvent | None) -> None:
         painter = QPainter(self)
         painter.setRenderHint(QPainter.RenderHint.Antialiasing)
 
@@ -181,25 +184,27 @@ class DropBox(QFrame):
             return None
         return local_path
 
-    def dragEnterEvent(self, event: QDragEnterEvent):
-        if self._extract_valid_path(event.mimeData()):
+    def dragEnterEvent(self, a0: QDragEnterEvent | None) -> None:
+        if a0 is not None and self._extract_valid_path(a0.mimeData()):
             self._set_active(True)
-            event.acceptProposedAction()
-        else:
-            event.ignore()
+            a0.acceptProposedAction()
+        elif a0 is not None:
+            a0.ignore()
 
-    def dragLeaveEvent(self, event):
+    def dragLeaveEvent(self, a0: QDragLeaveEvent | None) -> None:
         self._set_active(False)
 
-    def dropEvent(self, event: QDropEvent):
-        path = self._extract_valid_path(event.mimeData())
+    def dropEvent(self, a0: QDropEvent | None) -> None:
+        if a0 is None:
+            return
+        path = self._extract_valid_path(a0.mimeData())
         self._set_active(False)
         if path:
             self.path = path
             self._set_filename_text(os.path.basename(path))
-            event.acceptProposedAction()
+            a0.acceptProposedAction()
         else:
-            event.ignore()
+            a0.ignore()
 
     def clear(self):
         self.path = None
