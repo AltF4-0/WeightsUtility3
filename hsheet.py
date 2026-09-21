@@ -1,7 +1,4 @@
 #!/usr/bin/env python3
-from openpyxl.reader.excel import load_workbook
-
-
 def generate_hsheet(h_ki_totals, h_df, h_cheps, h_loscams, h_maxi_total):
 
     import datetime
@@ -12,6 +9,7 @@ def generate_hsheet(h_ki_totals, h_df, h_cheps, h_loscams, h_maxi_total):
     import pandas as pd
     from openpyxl import load_workbook
     from openpyxl.cell.cell import MergedCell
+    from openpyxl.reader.excel import load_workbook
     from openpyxl.styles import Alignment, Border, Font, PatternFill, Side
     from openpyxl.utils import get_column_letter
     from openpyxl.worksheet.page import PageMargins
